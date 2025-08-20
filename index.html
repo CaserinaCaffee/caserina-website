@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caserina Menu</title>
+  <style>
+    * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif;}
+    body {
+      background: linear-gradient(270deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+      background-size: 800% 800%;
+      animation: gradientBG 18s ease infinite;
+      color: #333;
+      padding: 1rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Floating glowing dots */
+    .dot {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      animation: float 12s infinite ease-in-out;
+    }
+    .dot:nth-child(1){width: 60px; height: 60px; top: 20%; left: 10%; animation-delay: 0s;}
+    .dot:nth-child(2){width: 40px; height: 40px; top: 60%; left: 80%; animation-delay: 2s;}
+    .dot:nth-child(3){width: 30px; height: 30px; top: 80%; left: 30%; animation-delay: 4s;}
+    .dot:nth-child(4){width: 50px; height: 50px; top: 40%; left: 60%; animation-delay: 6s;}
+
+    /* HEADER */
+    header { text-align: center; margin-bottom: 1.5rem; position: relative; z-index: 2; }
+    header img { width: 120px; max-width: 50%; }
+    header p { font-size: 0.95rem; color: #fff; margin-top: 0.5rem; }
+
+    /* CATEGORY (Accordion) */
+    .category {
+      background: rgba(255,255,255,0.95);
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      overflow: hidden;
+      position: relative;
+      z-index: 2;
+    }
+    .category-header {
+      padding: 1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #ff6363;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s;
+    }
+    .category-header:hover { background: #ffeaea; }
+    .category-header span {
+    font-size: 1.3rem;
+    transition: transform 0.3s;
+  }
+  .category-header.active span {
+  transform: rotate(90deg);
+  }
+
+    .category-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+  }
+   .category-content.open {
+  max-height: 1000px; /* allow slide-down to show items */
+  }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      margin: 0.5rem 1rem;
+      padding: 0.8rem;
+      border-radius: 0.6rem;
+      background: #fafafa;
+      transition: transform 0.3s, background 0.3s;
+    }
+    .menu-item:hover {
+      background: #ffe8e8;
+      transform: scale(1.02);
+    }
+    .menu-item img {
+      width: 60px;
+      height: 60px;
+      border-radius: 0.5rem;
+      object-fit: cover;
+      margin-right: 0.8rem;
+      background: #ddd;
+    }
+    .item-info { flex: 1; }
+    .item-info h3 { font-size: 1rem; margin-bottom: 0.2rem; color: #333; }
+    .item-info p { font-size: 0.8rem; }
+    .item-info p:not(.item-price) { color: #7b2cbf; } /* Purple descriptions */
+    .item-price { font-weight: bold; color: #e63946; font-size: 0.9rem; } /* Red price */
+
+    /* FOOTER */
+    footer { text-align: center; margin-top: 2rem; font-size: 0.85rem; color: #fff; position: relative; z-index: 2;}
+
+    /* Animations */
+    @keyframes gradientBG { 
+      0%{background-position:0% 50%} 
+      50%{background-position:100% 50%} 
+      100%{background-position:0% 50%} 
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); opacity: 0.6; }
+      50% { transform: translateY(-20px); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Dots -->
+  <div class="dot"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
+
+  <!-- HEADER -->
+  <header>
+    <!-- Replace logo.png with your real logo -->
+    <img src=" logo.png" alt="Caserina Logo">
+    <p>Refreshing Drinks • Hot Coffee • Sweet Treats</p>
+  </header>
+
+  <!-- COLD DRINKS -->
+  <div class="category">
+    <div class="category-header">Cold Drinks <span>▶</span></div>
+    <div class="category-content">
+      <div class="menu-item">
+        <img src=" smoothies.png" alt="">
+        <div class="item-info">
+          <h3>Smoothies</h3>
+          <p>Strawberry, Mango, Passion, Peach, Mix Berries, Blueberry, Tropical</p>
+          <p class="item-price">$3.3</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src=" milkshake.png" alt="">
+        <div class="item-info">
+          <h3>Milk Shakes</h3>
+          <p>Strawberry, Chocolate, Oreo, Lotus, Bounty, Tutty Fruity, Pistachio</p>
+          <p class="item-price">$4.5</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src=" frappuccino.png" alt="">
+        <div class="item-info">
+          <h3>Frappuccino</h3>
+          <p>Mocha, White Mocha, Caramel, Tiramisu, Irish</p>
+          <p class="item-price">$4.5</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOJITOS -->
+  <div class="category">
+    <div class="category-header">Mojitos <span>▶</span></div>
+    <div class="category-content">
+      <div class="menu-item">
+        <img src=" mojitopassion.png" alt="">
+        <div class="item-info">
+          <h3>Mojito</h3>
+          <p>Mint, Passion, Peach, Mango, Berries, Blue Curacao, Grenadine, Strawberry, Blueberry</p>
+          <p class="item-price">$2.8</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src=" mojito.png" alt="">
+        <div class="item-info">
+          <h3>Mojito Lemonade</h3>
+          <p>Lemonade, Lemonade & Mint, Lemonade & Basel</p>
+          <p class="item-price">$3.3</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ICED TEA & COFFEE -->
+  <div class="category">
+    <div class="category-header">Iced Tea & Coffee <span>▶</span></div>
+    <div class="category-content">
+      <div class="menu-item"><img src=" iceteapeach.png" alt=""><div class="item-info"><h3>Peach Ice Tea</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src=" lemonicetea.png" alt=""><div class="item-info"><h3>Lemon Ice Tea</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src=" peachberriesicetea.png" alt=""><div class="item-info"><h3>Peach Berries Ice Tea</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src=" peachpassionicetea.png" alt=""><div class="item-info"><h3>Peach Passion Ice Tea</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src=" caramelicecoffee.png" alt=""><div class="item-info"><h3>Caramel Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src=" icemocha.png" alt=""><div class="item-info"><h3>Ice Mocha</h3><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src=" vanillaicecoffee.png" alt=""><div class="item-info"><h3>Vanilla Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src=" irishicecoffee.png" alt=""><div class="item-info"><h3>Irish Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src=" tiramisuicecoffee.png" alt=""><div class="item-info"><h3>Tiramisu Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
+    </div>
+  </div>
+
+  <!-- HOT DRINKS -->
+  <div class="category">
+    <div class="category-header">Hot Drinks <span>▶</span></div>
+    <div class="category-content">
+      <div class="menu-item"><img src=" coffeelatte.png" alt=""><div class="item-info"><h3>Coffee Latte</h3><p>Mocha, Caramel, Vanilla, Tiramisu, Cookies</p><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src=" espresso.png" alt=""><div class="item-info"><h3>Espresso</h3><p class="item-price">$1.1</p></div></div>
+      <div class="menu-item"><img src=" tea.png" alt=""><div class="item-info"><h3>Tea</h3><p class="item-price">$1.1</p></div></div>
+      <div class="menu-item"><img src=" cocoa.png" alt=""><div class="item-info"><h3>Cocoa</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src=" cappuccino.png" alt=""><div class="item-info"><h3>Cappuccino</h3><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src=" nescafe.png" alt=""><div class="item-info"><h3>Nescafe</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src=" hotchoclate.png" alt=""><div class="item-info"><h3>Hot Chocolate</h3><p class="item-price">$3.3</p></div></div>
+    </div>
+  </div>
+
+  <!-- FRESH JUICES -->
+  <div class="category">
+    <div class="category-header">Fresh Juices <span>▶</span></div>
+    <div class="category-content">
+      <div class="menu-item"><img src=" mangofresh.png" alt=""><div class="item-info"><h3>Mango</h3><p class="item-price">$4.5</p></div></div>
+      <div class="menu-item"><img src=" strawberryfresh.png" alt=""><div class="item-info"><h3>Strawberry</h3><p class="item-price">$3.9</p></div></div>
+      <div class="menu-item"><img src=" cocktail.png" alt=""><div class="item-info"><h3>Cocktail</h3><p class="item-price">$5.0</p></div></div>
+    </div>
+  </div>
+
+  <!-- SOFT DRINKS -->
+  <div class="category">
+    <div class="category-header">Soft Drinks <span>▶</span></div>
+    <div class="category-content">
+      <div class="menu-item"><img src=" cannedsoftdrinks.png" alt=""><div class="item-info"><h3>Canned Soft Drink</h3><p class="item-price">$1.1</p></div></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Caserina. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+  document.querySelectorAll(".category-header").forEach(header => {
+    header.addEventListener("click", () => {
+      const content = header.nextElementSibling;
+      const isOpen = content.classList.contains("open");
+
+      // Close all categories
+      document.querySelectorAll(".category-content").forEach(c => c.classList.remove("open"));
+      document.querySelectorAll(".category-header").forEach(h => h.classList.remove("active"));
+
+      // Open the clicked one if it was closed
+      if (!isOpen) {
+        content.classList.add("open");
+        header.classList.add("active");
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
