@@ -1,140 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Caserina Menu</title>
   <style>
-    * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif;}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    /* Dark, elegant background */
     body {
-      background: linear-gradient(270deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
-      background-size: 800% 800%;
-      animation: gradientBG 18s ease infinite;
-      color: #333;
-      padding: 1rem;
-      position: relative;
+      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+      color: #fff;
       overflow-x: hidden;
     }
 
-    /* Floating glowing dots */
-    .dot {
+    /* Animated background bubbles */
+    .bubble {
       position: absolute;
       border-radius: 50%;
-      background: rgba(255,255,255,0.25);
-      animation: float 12s infinite ease-in-out;
+      background: rgba(255, 255, 255, 0.1);
+      animation: rise 20s infinite ease-in;
+      filter: blur(0.2px);
+      z-index: 0;
     }
-    .dot:nth-child(1){width: 60px; height: 60px; top: 20%; left: 10%; animation-delay: 0s;}
-    .dot:nth-child(2){width: 40px; height: 40px; top: 60%; left: 80%; animation-delay: 2s;}
-    .dot:nth-child(3){width: 30px; height: 30px; top: 80%; left: 30%; animation-delay: 4s;}
-    .dot:nth-child(4){width: 50px; height: 50px; top: 40%; left: 60%; animation-delay: 6s;}
+    .bubble:nth-child(1) { width: 120px; height: 120px; left: 20%; bottom: -150px; animation-delay: 0s; }
+    .bubble:nth-child(2) { width: 80px; height: 80px; left: 60%; bottom: -200px; animation-delay: 3s; }
+    .bubble:nth-child(3) { width: 100px; height: 100px; left: 80%; bottom: -180px; animation-delay: 6s; }
+    .bubble:nth-child(4) { width: 50px; height: 50px; left: 40%; bottom: -100px; animation-delay: 9s; }
+    .bubble:nth-child(5) { width: 150px; height: 150px; left: 10%; bottom: -250px; animation-delay: 12s; }
+    @keyframes rise {
+      0% { transform: translateY(0) scale(1); opacity: .4; }
+      50% { opacity: .8; }
+      100% { transform: translateY(-120vh) scale(1.25); opacity: 0; }
+    }
 
-    /* HEADER */
-    header { text-align: center; margin-bottom: 1.5rem; position: relative; z-index: 2; }
-    header img { width: 120px; max-width: 50%; }
-    header p { font-size: 0.95rem; color: #fff; margin-top: 0.5rem; }
+    /* Top banner with centered overlay content */
+    .banner {
+      width: 100%;
+      max-height: 500px;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+    .banner img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.75) contrast(1.1);
+      transition: filter 0.4s ease, transform 0.6s ease;
+    }
+    .banner img:hover {
+      filter: brightness(0.9) contrast(1.1);
+      transform: scale(1.02);
+    }
 
-    /* CATEGORY (Accordion) */
+    /* Centered overlay: logo + tagline + welcome text */
+    .banner-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 3;
+      color: #fff;
+      padding: 20px;
+    }
+
+    /* Logo styling */
+    .logo-overlay img.logo {
+      width: 140px;
+      border-radius: 50%;
+      box-shadow: 0 0 25px rgba(255, 183, 3, 0.5);
+      border: 3px solid #ffb703;
+      background: #fff;
+      padding: 5px;
+      transition: transform 0.3s ease;
+    }
+    .logo-overlay img.logo:hover {
+      transform: scale(1.1);
+    }
+
+    /* Welcome text */
+    .welcome-text {
+      margin-top: 1rem;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+    }
+    .welcome-text small {
+      display: block;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #ffd166;
+      margin-top: 0.4rem;
+    }
+
+    /* Tagline with cartoon icons */
+    .tagline {
+      font-size: 1.1rem;
+      color: #fff;
+      margin-top: 0.8rem;
+      font-weight: 600;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      max-width: 80%;
+    }
+    .tagline span {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* Category (accordion) */
     .category {
-      background: rgba(255,255,255,0.95);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 1rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin: .9rem .8rem;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
       overflow: hidden;
       position: relative;
       z-index: 2;
+      backdrop-filter: blur(4px);
     }
     .category-header {
       padding: 1rem;
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #ff6363;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--desc-color, #ffb703);
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      transition: background 0.3s;
+      transition: background .3s;
     }
-    .category-header:hover { background: #ffeaea; }
+    .category-header:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
     .category-header span {
-    font-size: 1.3rem;
-    transition: transform 0.3s;
-  }
-  .category-header.active span {
-  transform: rotate(90deg);
-  }
-
+      font-size: 1.3rem;
+      transition: transform .3s;
+    }
+    .category-header.active span {
+      transform: rotate(90deg);
+    }
     .category-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s ease;
-  }
-   .category-content.open {
-  max-height: 1000px; /* allow slide-down to show items */
-  }
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .5s ease;
+      will-change: max-height;
+    }
 
+    /* Menu items */
     .menu-item {
       display: flex;
       align-items: center;
-      margin: 0.5rem 1rem;
-      padding: 0.8rem;
-      border-radius: 0.6rem;
-      background: #fafafa;
-      transition: transform 0.3s, background 0.3s;
+      gap: .8rem;
+      margin: .5rem 1rem;
+      padding: .85rem;
+      border-radius: .6rem;
+      background: rgba(255, 255, 255, 0.05);
+      transition: transform .25s, background .25s;
     }
     .menu-item:hover {
-      background: #ffe8e8;
-      transform: scale(1.02);
+      background: rgba(255, 255, 255, 0.12);
+      transform: scale(1.015);
     }
     .menu-item img {
       width: 60px;
       height: 60px;
-      border-radius: 0.5rem;
+      border-radius: .5rem;
       object-fit: cover;
-      margin-right: 0.8rem;
-      background: #ddd;
+      background: #222;
+      flex: 0 0 60px;
     }
-    .item-info { flex: 1; }
-    .item-info h3 { font-size: 1rem; margin-bottom: 0.2rem; color: #333; }
-    .item-info p { font-size: 0.8rem; }
-    .item-info p:not(.item-price) { color: #7b2cbf; } /* Purple descriptions */
-    .item-price { font-weight: bold; color: #e63946; font-size: 0.9rem; } /* Red price */
-
-    /* FOOTER */
-    footer { text-align: center; margin-top: 2rem; font-size: 0.85rem; color: #fff; position: relative; z-index: 2;}
-
-    /* Animations */
-    @keyframes gradientBG { 
-      0%{background-position:0% 50%} 
-      50%{background-position:100% 50%} 
-      100%{background-position:0% 50%} 
+    .item-info {
+      flex: 1;
+      min-width: 0;
     }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); opacity: 0.6; }
-      50% { transform: translateY(-20px); opacity: 1; }
+    .item-info h3 {
+      font-size: 1rem;
+      margin-bottom: .18rem;
+      color: #fff;
+      line-height: 1.2;
+    }
+    .item-info p:not(.item-price) {
+      font-size: .82rem;
+      line-height: 1.25;
+      color: var(--desc-color, #ffb703);
+    }
+    .item-price {
+      font-weight: 700;
+      color: #e63946;
+      font-size: .92rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin: 1.6rem 0 2.2rem;
+      font-size: .85rem;
+      color: #bdbdbd;
+    }
+    footer .contact {
+      margin-top: 0.8rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    footer .contact a,
+    footer .contact span {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #ffb703;
+      text-decoration: none;
+      font-size: .9rem;
+    }
+    footer .contact i {
+      font-size: 1.1rem;
     }
   </style>
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-  <!-- Floating Dots -->
-  <div class="dot"></div>
-  <div class="dot"></div>
-  <div class="dot"></div>
-  <div class="dot"></div>
+  <!-- Animated background elements -->
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
 
-  <!-- HEADER -->
-  <header>
-    <!-- Replace logo.png with your real logo -->
-    <img src=" logo.png" alt="Caserina Logo">
-    <p>Refreshing Drinks • Hot Coffee • Sweet Treats</p>
-  </header>
+  <!-- Top banner photo with full overlay -->
+  <div class="banner">
+    <img src="images/restaurentthumb.png" alt="Caserina Restaurant">
+    <div class="banner-overlay">
+      <!-- Logo -->
+      <div class="logo-overlay">
+        <img class="logo" src="logo.png" alt="Caserina Logo">
+      </div>
+      
+      <!-- Welcome Text -->
+      <div class="welcome-text">
+        Welcome to Caserina Caffee
+        <small>Choose Your Items</small>
+      </div>
 
-  <!-- COLD DRINKS -->
-  <div class="category">
+      <!-- Tagline with cartoon icons -->
+      <p class="tagline">
+        <span>🍹 Refreshing Drinks</span>
+        <span>☕ Hot Coffee</span>
+        <span>🍰 Sweet Treats</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== COLD DRINKS ===== -->
+  <div class="category" style="--desc-color:#ffb703">
     <div class="category-header">Cold Drinks <span>▶</span></div>
     <div class="category-content">
       <div class="menu-item">
-        <img src=" smoothies.png" alt="">
+        <img src="smoothies.png" alt="Smoothies">
         <div class="item-info">
           <h3>Smoothies</h3>
           <p>Strawberry, Mango, Passion, Peach, Mix Berries, Blueberry, Tropical</p>
@@ -142,7 +287,7 @@
         </div>
       </div>
       <div class="menu-item">
-        <img src=" milkshake.png" alt="">
+        <img src="milkshake.png" alt="Milk Shakes">
         <div class="item-info">
           <h3>Milk Shakes</h3>
           <p>Strawberry, Chocolate, Oreo, Lotus, Bounty, Tutty Fruity, Pistachio</p>
@@ -150,7 +295,7 @@
         </div>
       </div>
       <div class="menu-item">
-        <img src=" frappuccino.png" alt="">
+        <img src="frappuccino.png" alt="Frappuccino">
         <div class="item-info">
           <h3>Frappuccino</h3>
           <p>Mocha, White Mocha, Caramel, Tiramisu, Irish</p>
@@ -160,12 +305,12 @@
     </div>
   </div>
 
-  <!-- MOJITOS -->
-  <div class="category">
+  <!-- ===== MOJITOS ===== -->
+  <div class="category" style="--desc-color:#ffb703">
     <div class="category-header">Mojitos <span>▶</span></div>
     <div class="category-content">
       <div class="menu-item">
-        <img src=" mojitopassion.png" alt="">
+        <img src="mojitopassion.png" alt="Mojito">
         <div class="item-info">
           <h3>Mojito</h3>
           <p>Mint, Passion, Peach, Mango, Berries, Blue Curacao, Grenadine, Strawberry, Blueberry</p>
@@ -173,7 +318,7 @@
         </div>
       </div>
       <div class="menu-item">
-        <img src=" mojito.png" alt="">
+        <img src="mojito.png" alt="Mojito Lemonade">
         <div class="item-info">
           <h3>Mojito Lemonade</h3>
           <p>Lemonade, Lemonade & Mint, Lemonade & Basel</p>
@@ -183,77 +328,105 @@
     </div>
   </div>
 
-  <!-- ICED TEA & COFFEE -->
-  <div class="category">
+  <!-- ===== ICED TEA & COFFEE ===== -->
+  <div class="category" style="--desc-color:#ffb703">
     <div class="category-header">Iced Tea & Coffee <span>▶</span></div>
     <div class="category-content">
-      <div class="menu-item"><img src=" iceteapeach.png" alt=""><div class="item-info"><h3>Peach Ice Tea</h3><p class="item-price">$2.2</p></div></div>
-      <div class="menu-item"><img src=" lemonicetea.png" alt=""><div class="item-info"><h3>Lemon Ice Tea</h3><p class="item-price">$2.2</p></div></div>
-      <div class="menu-item"><img src=" peachberriesicetea.png" alt=""><div class="item-info"><h3>Peach Berries Ice Tea</h3><p class="item-price">$2.2</p></div></div>
-      <div class="menu-item"><img src=" peachpassionicetea.png" alt=""><div class="item-info"><h3>Peach Passion Ice Tea</h3><p class="item-price">$2.2</p></div></div>
-      <div class="menu-item"><img src=" caramelicecoffee.png" alt=""><div class="item-info"><h3>Caramel Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
-      <div class="menu-item"><img src=" icemocha.png" alt=""><div class="item-info"><h3>Ice Mocha</h3><p class="item-price">$2.8</p></div></div>
-      <div class="menu-item"><img src=" vanillaicecoffee.png" alt=""><div class="item-info"><h3>Vanilla Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
-      <div class="menu-item"><img src=" irishicecoffee.png" alt=""><div class="item-info"><h3>Irish Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
-      <div class="menu-item"><img src=" tiramisuicecoffee.png" alt=""><div class="item-info"><h3>Tiramisu Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src="iceteapeach.png" alt="Peach Ice Tea"><div class="item-info"><h3>Peach Ice Tea</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src="lemonicetea.png" alt="Lemon Ice Tea"><div class="item-info"><h3>Lemon Ice Tea</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src="peachberriesicetea.png" alt="Peach Berries Ice Tea"><div class="item-info"><h3>Peach Berries Ice Tea</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src="peachpassionicetea.png" alt="Peach Passion Ice Tea"><div class="item-info"><h3>Peach Passion Ice Tea</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src="caramelicecoffee.png" alt="Caramel Ice Coffee"><div class="item-info"><h3>Caramel Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src="icemocha.png" alt="Ice Mocha"><div class="item-info"><h3>Ice Mocha</h3><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src="vanillaicecoffee.png" alt="Vanilla Ice Coffee"><div class="item-info"><h3>Vanilla Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src="irishicecoffee.png" alt="Irish Ice Coffee"><div class="item-info"><h3>Irish Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src="tiramisuicecoffee.png" alt="Tiramisu Ice Coffee"><div class="item-info"><h3>Tiramisu Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
     </div>
   </div>
 
-  <!-- HOT DRINKS -->
-  <div class="category">
+  <!-- ===== HOT DRINKS ===== -->
+  <div class="category" style="--desc-color:#ffb703">
     <div class="category-header">Hot Drinks <span>▶</span></div>
     <div class="category-content">
-      <div class="menu-item"><img src=" coffeelatte.png" alt=""><div class="item-info"><h3>Coffee Latte</h3><p>Mocha, Caramel, Vanilla, Tiramisu, Cookies</p><p class="item-price">$2.8</p></div></div>
-      <div class="menu-item"><img src=" espresso.png" alt=""><div class="item-info"><h3>Espresso</h3><p class="item-price">$1.1</p></div></div>
-      <div class="menu-item"><img src=" tea.png" alt=""><div class="item-info"><h3>Tea</h3><p class="item-price">$1.1</p></div></div>
-      <div class="menu-item"><img src=" cocoa.png" alt=""><div class="item-info"><h3>Cocoa</h3><p class="item-price">$2.2</p></div></div>
-      <div class="menu-item"><img src=" cappuccino.png" alt=""><div class="item-info"><h3>Cappuccino</h3><p class="item-price">$2.8</p></div></div>
-      <div class="menu-item"><img src=" nescafe.png" alt=""><div class="item-info"><h3>Nescafe</h3><p class="item-price">$2.2</p></div></div>
-      <div class="menu-item"><img src=" hotchoclate.png" alt=""><div class="item-info"><h3>Hot Chocolate</h3><p class="item-price">$3.3</p></div></div>
+      <div class="menu-item"><img src="coffeelatte.png" alt="Coffee Latte"><div class="item-info"><h3>Coffee Latte</h3><p>Mocha, Caramel, Vanilla, Tiramisu, Cookies</p><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src="espresso.png" alt="Espresso"><div class="item-info"><h3>Espresso</h3><p class="item-price">$1.1</p></div></div>
+      <div class="menu-item"><img src="tea.png" alt="Tea"><div class="item-info"><h3>Tea</h3><p class="item-price">$1.1</p></div></div>
+      <div class="menu-item"><img src="cocoa.png" alt="Cocoa"><div class="item-info"><h3>Cocoa</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src="cappuccino.png" alt="Cappuccino"><div class="item-info"><h3>Cappuccino</h3><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src="nescafe.png" alt="Nescafe"><div class="item-info"><h3>Nescafe</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src="hotchoclate.png" alt="Hot Chocolate"><div class="item-info"><h3>Hot Chocolate</h3><p class="item-price">$3.3</p></div></div>
     </div>
   </div>
 
-  <!-- FRESH JUICES -->
-  <div class="category">
+  <!-- ===== FRESH JUICES ===== -->
+  <div class="category" style="--desc-color:#ffb703">
     <div class="category-header">Fresh Juices <span>▶</span></div>
     <div class="category-content">
-      <div class="menu-item"><img src=" mangofresh.png" alt=""><div class="item-info"><h3>Mango</h3><p class="item-price">$4.5</p></div></div>
-      <div class="menu-item"><img src=" strawberryfresh.png" alt=""><div class="item-info"><h3>Strawberry</h3><p class="item-price">$3.9</p></div></div>
-      <div class="menu-item"><img src=" cocktail.png" alt=""><div class="item-info"><h3>Cocktail</h3><p class="item-price">$5.0</p></div></div>
+      <div class="menu-item"><img src="mangofresh.png" alt="Mango Juice"><div class="item-info"><h3>Mango</h3><p class="item-price">$4.5</p></div></div>
+      <div class="menu-item"><img src="strawberryfresh.png" alt="Strawberry Juice"><div class="item-info"><h3>Strawberry</h3><p class="item-price">$3.9</p></div></div>
+      <div class="menu-item"><img src="cocktail.png" alt="Cocktail Juice"><div class="item-info"><h3>Cocktail</h3><p class="item-price">$5.0</p></div></div>
     </div>
   </div>
 
-  <!-- SOFT DRINKS -->
-  <div class="category">
+  <!-- ===== SOFT DRINKS ===== -->
+  <div class="category" style="--desc-color:#ffb703">
     <div class="category-header">Soft Drinks <span>▶</span></div>
     <div class="category-content">
-      <div class="menu-item"><img src=" cannedsoftdrinks.png" alt=""><div class="item-info"><h3>Canned Soft Drink</h3><p class="item-price">$1.1</p></div></div>
+      <div class="menu-item"><img src="cannedsoftdrinks.png" alt="Canned Soft Drink"><div class="item-info"><h3>Canned Soft Drink</h3><p class="item-price">$1.1</p></div></div>
     </div>
   </div>
 
   <!-- FOOTER -->
   <footer>
     <p>© 2025 Caserina. All Rights Reserved.</p>
+    <div class="contact">
+      <a href="https://wa.me/96176421443" target="_blank" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i> +96176421443
+      </a>
+      <a href="https://www.google.com/maps?q=Touline+-+AlTamriye" target="_blank" aria-label="Location">
+        <i class="fas fa-map-marker-alt"></i> Touline - AlTamriye
+      </a>
+    </div>
   </footer>
 
   <script>
-  document.querySelectorAll(".category-header").forEach(header => {
-    header.addEventListener("click", () => {
-      const content = header.nextElementSibling;
-      const isOpen = content.classList.contains("open");
+    // Accordion functionality
+    const headers = document.querySelectorAll('.category-header');
 
-      // Close all categories
-      document.querySelectorAll(".category-content").forEach(c => c.classList.remove("open"));
-      document.querySelectorAll(".category-header").forEach(h => h.classList.remove("active"));
+    function closeAll() {
+      document.querySelectorAll('.category-content').forEach(c => {
+        c.style.maxHeight = null;
+        c.classList.remove('open');
+      });
+      headers.forEach(h => h.classList.remove('active'));
+    }
 
-      // Open the clicked one if it was closed
-      if (!isOpen) {
-        content.classList.add("open");
-        header.classList.add("active");
+    headers.forEach(header => {
+      header.addEventListener('click', () => {
+        const content = header.nextElementSibling;
+        const isOpen = content.classList.contains('open');
+
+        if (isOpen) {
+          content.style.maxHeight = null;
+          content.classList.remove('open');
+          header.classList.remove('active');
+          return;
+        }
+
+        closeAll();
+        content.classList.add('open');
+        header.classList.add('active');
+        content.style.maxHeight = content.scrollHeight + 'px';
+      });
+    });
+
+    // Adjust height on resize
+    window.addEventListener('resize', () => {
+      const open = document.querySelector('.category-content.open');
+      if (open) {
+        open.style.maxHeight = open.scrollHeight + 'px';
       }
     });
-  });
-</script>
-
+  </script>
 </body>
 </html>
