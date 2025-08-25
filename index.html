@@ -2,65 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Caserina Menu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Caserina Caffee</title>
+  <meta name="description" content="Welcome to Caserina Caffee – Refreshing Drinks, Hot Coffee, Sweet Treats. Choose your items.">
+
   <style>
+    /* Reset & Base */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family: 'Poppins', 'Segoe UI', Roboto, Arial, sans-serif;
     }
 
-    /* Dark, elegant background */
     body {
       background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
       color: #fff;
       overflow-x: hidden;
+      min-height: 100vh;
     }
 
-    /* Animated background bubbles */
+    /* Animated Bubbles Background */
     .bubble {
-      position: absolute;
+      position: fixed;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.1);
-      animation: rise 20s infinite ease-in;
-      filter: blur(0.2px);
-      z-index: 0;
+      filter: blur(0.5px);
+      z-index: -1;
+      animation: rise linear infinite;
     }
-    .bubble:nth-child(1) { width: 120px; height: 120px; left: 20%; bottom: -150px; animation-delay: 0s; }
-    .bubble:nth-child(2) { width: 80px; height: 80px; left: 60%; bottom: -200px; animation-delay: 3s; }
-    .bubble:nth-child(3) { width: 100px; height: 100px; left: 80%; bottom: -180px; animation-delay: 6s; }
-    .bubble:nth-child(4) { width: 50px; height: 50px; left: 40%; bottom: -100px; animation-delay: 9s; }
-    .bubble:nth-child(5) { width: 150px; height: 150px; left: 10%; bottom: -250px; animation-delay: 12s; }
     @keyframes rise {
-      0% { transform: translateY(0) scale(1); opacity: .4; }
-      50% { opacity: .8; }
-      100% { transform: translateY(-120vh) scale(1.25); opacity: 0; }
+      0% { transform: translateY(0) scale(1); opacity: 0.3; }
+      50% { opacity: 0.6; }
+      100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
     }
 
-    /* Top banner with centered overlay content */
+    /* Banner with Responsive Aspect Ratio */
     .banner {
-      width: 100%;
-      max-height: 200px;
-      overflow: hidden;
       position: relative;
-      z-index: 1;
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%; /* 16:9 */
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255, 183, 3, 0.2);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     }
     .banner img {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      height: auto;
+      height: 100%;
       object-fit: cover;
-      display: block;
-      filter: brightness(0.75) contrast(1.1);
-      transition: filter 0.4s ease, transform 0.6s ease;
+      filter: brightness(0.7) contrast(1.1) saturate(1.1);
+      transition: filter 0.5s ease;
     }
     .banner img:hover {
-      filter: brightness(0.9) contrast(1.1);
-      transform: scale(1.02);
+      filter: brightness(0.85) contrast(1.1);
     }
 
-    /* Centered overlay: logo + tagline + welcome text */
+    /* Overlay: Centered Content */
     .banner-overlay {
       position: absolute;
       top: 0;
@@ -72,53 +73,58 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      z-index: 3;
-      color: #fff;
+      z-index: 2;
       padding: 20px;
     }
 
-    /* Logo styling */
-    .logo-overlay img.logo {
+    /* Logo Wrapper - Perfect Circle + Brightness */
+    .logo-wrapper {
       width: 140px;
+      height: 140px;
       border-radius: 50%;
-      box-shadow: 0 0 25px rgba(255, 183, 3, 0.5);
       border: 3px solid #ffb703;
+      box-shadow: 0 0 30px rgba(255, 183, 3, 0.7);
+      overflow: hidden;
       background: #fff;
-      padding: 5px;
-      transition: transform 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      /* Add glow effect for better visibility */
+      filter: brightness(1.2) contrast(1.1);
     }
-    .logo-overlay img.logo:hover {
-      transform: scale(1.1);
+    .logo-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* Prevents distortion */
+      filter: brightness(1.1) contrast(1.1);
     }
 
-    /* Welcome text */
     .welcome-text {
-      margin-top: 1rem;
-      font-size: 1.4rem;
+      margin-top: 18px;
+      font-size: 1.7rem;
       font-weight: 700;
       color: #fff;
-      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
     }
     .welcome-text small {
       display: block;
-      font-size: 1rem;
-      font-weight: 400;
+      font-size: 1.15rem;
       color: #ffd166;
-      margin-top: 0.4rem;
+      margin-top: 6px;
+      font-weight: 400;
     }
 
-    /* Tagline with cartoon icons */
     .tagline {
-      font-size: 1.1rem;
-      color: #fff;
-      margin-top: 0.8rem;
+      font-size: 1.15rem;
+      margin-top: 16px;
       font-weight: 600;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
       display: flex;
       justify-content: center;
       gap: 1.2rem;
       flex-wrap: wrap;
-      max-width: 80%;
+      max-width: 90%;
     }
     .tagline span {
       display: flex;
@@ -126,35 +132,35 @@
       gap: 0.4rem;
     }
 
-    /* Category (accordion) */
+    /* Category Accordion */
     .category {
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 1rem;
-      margin: .9rem .8rem;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+      margin: 1rem 0.9rem;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
       overflow: hidden;
       position: relative;
-      z-index: 2;
+      z-index: 1;
       backdrop-filter: blur(4px);
     }
     .category-header {
-      padding: 1rem;
-      font-size: 1.15rem;
+      padding: 1.1rem 1rem;
+      font-size: 1.2rem;
       font-weight: 700;
       color: var(--desc-color, #ffb703);
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      transition: background .3s;
+      transition: background 0.3s ease;
     }
     .category-header:hover {
       background: rgba(255, 255, 255, 0.06);
     }
     .category-header span {
       font-size: 1.3rem;
-      transition: transform .3s;
+      transition: transform 0.3s ease;
     }
     .category-header.active span {
       transform: rotate(90deg);
@@ -162,66 +168,69 @@
     .category-content {
       max-height: 0;
       overflow: hidden;
-      transition: max-height .5s ease;
+      transition: max-height 0.6s cubic-bezier(0, 1, 0, 1);
       will-change: max-height;
     }
 
-    /* Menu items */
+    /* Menu Items */
     .menu-item {
       display: flex;
       align-items: center;
-      gap: .8rem;
-      margin: .5rem 1rem;
-      padding: .85rem;
-      border-radius: .6rem;
+      gap: 1rem;
+      margin: 0.6rem 1rem;
+      padding: 0.9rem;
+      border-radius: 0.8rem;
       background: rgba(255, 255, 255, 0.05);
-      transition: transform .25s, background .25s;
+      transition: all 0.3s ease;
     }
     .menu-item:hover {
-      background: rgba(255, 255, 255, 0.12);
-      transform: scale(1.015);
+      background: rgba(255, 255, 255, 0.13);
+      transform: translateY(-2px) scale(1.02);
     }
     .menu-item img {
-      width: 60px;
-      height: 60px;
-      border-radius: .5rem;
+      width: 65px;
+      height: 65px;
+      border-radius: 0.6rem;
       object-fit: cover;
       background: #222;
-      flex: 0 0 60px;
+      flex: 0 0 65px;
     }
     .item-info {
       flex: 1;
       min-width: 0;
     }
     .item-info h3 {
-      font-size: 1rem;
-      margin-bottom: .18rem;
+      font-size: 1.05rem;
+      margin-bottom: 0.2rem;
       color: #fff;
-      line-height: 1.2;
+      line-height: 1.3;
+      font-weight: 600;
     }
     .item-info p:not(.item-price) {
-      font-size: .82rem;
-      line-height: 1.25;
+      font-size: 0.85rem;
+      line-height: 1.35;
       color: var(--desc-color, #ffb703);
     }
     .item-price {
       font-weight: 700;
       color: #e63946;
-      font-size: .92rem;
+      font-size: 0.95rem;
+      margin-top: 0.2rem;
     }
 
     /* Footer */
     footer {
       text-align: center;
-      margin: 1.6rem 0 2.2rem;
-      font-size: .85rem;
+      margin: 2rem 0 2.5rem;
+      font-size: 0.9rem;
       color: #bdbdbd;
+      padding: 0 1rem;
     }
     footer .contact {
-      margin-top: 0.8rem;
+      margin-top: 0.9rem;
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
+      gap: 1.6rem;
       align-items: center;
       flex-wrap: wrap;
     }
@@ -229,43 +238,73 @@
     footer .contact span {
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.5rem;
       color: #ffb703;
       text-decoration: none;
-      font-size: .9rem;
+      font-size: 0.95rem;
     }
     footer .contact i {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .welcome-text { font-size: 1.5rem; }
+      .welcome-text small { font-size: 1.05rem; }
+      .tagline { font-size: 1.05rem; gap: 0.9rem; }
+      .logo-wrapper { width: 110px; height: 110px; }
+      .menu-item { gap: 0.8rem; padding: 0.8rem; }
+      .menu-item img { width: 55px; height: 55px; }
+    }
+    @media (max-width: 576px) {
+      .welcome-text { font-size: 1.3rem; }
+      .welcome-text small { font-size: 0.95rem; }
+      .tagline { font-size: 0.95rem; gap: 0.7rem; }
+      .logo-wrapper { width: 100px; height: 100px; }
+    }
+    @media (max-width: 400px) {
+      .welcome-text { font-size: 1.2rem; }
+      .welcome-text small { font-size: 0.85rem; }
+      .tagline { font-size: 0.85rem; gap: 0.6rem; }
+      .logo-wrapper { width: 90px; height: 90px; }
+      .menu-item img { width: 50px; height: 50px; }
+    }
+    @media (min-width: 1200px) {
+      .banner { max-height: 600px; padding-bottom: 0; height: 600px; }
+      .welcome-text { font-size: 2.1rem; }
+      .welcome-text small { font-size: 1.35rem; }
+      .tagline { font-size: 1.4rem; gap: 1.6rem; }
+      .logo-wrapper { width: 160px; height: 160px; }
+      .menu-item img { width: 70px; height: 70px; }
     }
   </style>
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
-  <!-- Animated background elements -->
-  <div class="bubble"></div>
-  <div class="bubble"></div>
-  <div class="bubble"></div>
-  <div class="bubble"></div>
-  <div class="bubble"></div>
+  <!-- Animated Bubbles -->
+  <div class="bubble" style="width:120px;height:120px;left:20%;bottom:-120px;animation-duration:18s;"></div>
+  <div class="bubble" style="width:80px;height:80px;left:60%;bottom:-100px;animation-duration:14s;animation-delay:2s;"></div>
+  <div class="bubble" style="width:100px;height:100px;left:80%;bottom:-150px;animation-duration:20s;animation-delay:4s;"></div>
+  <div class="bubble" style="width:60px;height:60px;left:30%;bottom:-80px;animation-duration:16s;animation-delay:6s;"></div>
+  <div class="bubble" style="width:150px;height:150px;left:10%;bottom:-200px;animation-duration:22s;animation-delay:1s;"></div>
 
-  <!-- Top banner photo with full overlay -->
+  <!-- Banner with Overlay -->
   <div class="banner">
-    <img src="restaurentthumb.png" alt="Caserina Restaurant">
+    <img src="images/restaurentthumb.png" alt="Caserina Caffee Restaurant">
     <div class="banner-overlay">
-      <!-- Logo -->
-      <div class="logo-overlay">
-        <img class="logo" src="logo.png" alt="Caserina Logo">
+      <!-- Circular Logo with Brightness Fix -->
+      <div class="logo-wrapper">
+        <img src="logo.png" alt="Caserina Logo">
       </div>
-      
       <!-- Welcome Text -->
       <div class="welcome-text">
         Welcome to Caserina Caffee
         <small>Choose Your Items</small>
       </div>
-
-      <!-- Tagline with cartoon icons -->
+      <!-- Tagline with Icons -->
       <p class="tagline">
         <span>🍹 Refreshing Drinks</span>
         <span>☕ Hot Coffee</span>
@@ -321,7 +360,7 @@
         <img src="mojito.png" alt="Mojito Lemonade">
         <div class="item-info">
           <h3>Mojito Lemonade</h3>
-          <p>Lemonade, Lemonade & Mint, Lemonade & Basel</p>
+          <p>Lemonade, Lemonade & Mint, Lemonade & Basil</p>
           <p class="item-price">$3.3</p>
         </div>
       </div>
@@ -381,7 +420,7 @@
     <p>© 2025 Caserina. All Rights Reserved.</p>
     <div class="contact">
       <a href="https://wa.me/96176421443" target="_blank" aria-label="WhatsApp">
-        <i class="fab fa-whatsapp"></i> +96176421443
+        <i class="fab fa-whatsapp"></i> +961 76 421 443
       </a>
       <a href="https://www.google.com/maps?q=Touline+-+AlTamriye" target="_blank" aria-label="Location">
         <i class="fas fa-map-marker-alt"></i> Touline - AlTamriye
@@ -389,45 +428,33 @@
     </div>
   </footer>
 
+  <!-- Accordion Script -->
   <script>
-    // Accordion functionality
-    const headers = document.querySelectorAll('.category-header');
-
-    function closeAll() {
-      document.querySelectorAll('.category-content').forEach(c => {
-        c.style.maxHeight = null;
-        c.classList.remove('open');
-      });
-      headers.forEach(h => h.classList.remove('active'));
-    }
-
-    headers.forEach(header => {
+    document.querySelectorAll('.category-header').forEach(header => {
+      const content = header.nextElementSibling;
       header.addEventListener('click', () => {
-        const content = header.nextElementSibling;
-        const isOpen = content.classList.contains('open');
+        const isActive = header.classList.contains('active');
 
-        if (isOpen) {
-          content.style.maxHeight = null;
-          content.classList.remove('open');
-          header.classList.remove('active');
-          return;
+        // Close all
+        document.querySelectorAll('.category-content').forEach(c => {
+          c.style.maxHeight = null;
+          c.previousElementSibling.classList.remove('active');
+        });
+
+        if (!isActive) {
+          header.classList.add('active');
+          content.style.maxHeight = content.scrollHeight + 'px';
         }
-
-        closeAll();
-        content.classList.add('open');
-        header.classList.add('active');
-        content.style.maxHeight = content.scrollHeight + 'px';
       });
     });
 
-    // Adjust height on resize
     window.addEventListener('resize', () => {
-      const open = document.querySelector('.category-content.open');
-      if (open) {
-        open.style.maxHeight = open.scrollHeight + 'px';
+      const active = document.querySelector('.category-header.active');
+      const content = active?.nextElementSibling;
+      if (content) {
+        content.style.maxHeight = content.scrollHeight + 'px';
       }
     });
   </script>
 </body>
 </html>
-
