@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Caserina Caffee</title>
   <meta name="description" content="Welcome to Caserina Caffee – Refreshing Drinks, Hot Coffee, Sweet Treats. Choose your items.">
 
@@ -37,12 +37,12 @@
       100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
     }
 
-    /* Banner with Dynamic Height */
+    /* Banner with Responsive Aspect Ratio */
     .banner {
       position: relative;
       width: 100%;
       height: 0;
-      padding-bottom: 50%;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
       overflow: hidden;
       border-bottom: 1px solid rgba(255, 183, 3, 0.2);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
@@ -255,20 +255,34 @@
       font-size: 1.2rem;
     }
 
-    /* Responsive Adjustments */
+    /* Mobile-First Responsive Design */
     @media (max-width: 414px) {
-      .menu-item img { width: 55px; height: 55px; }
+      .welcome-text { font-size: 1.3rem; }
+      .welcome-text small { font-size: 0.9rem; }
+      .tagline { font-size: 0.9rem; gap: 0.7rem; }
+      .logo-wrapper { width: 100px; height: 100px; }
       .menu-item { gap: 0.8rem; padding: 0.8rem; }
-      .category { margin: 0.8rem 0.7rem; }
+      .menu-item img { width: 55px; height: 55px; }
     }
     @media (max-width: 375px) {
+      .welcome-text { font-size: 1.2rem; }
+      .welcome-text small { font-size: 0.85rem; }
+      .tagline { font-size: 0.85rem; gap: 0.6rem; }
+      .logo-wrapper { width: 90px; height: 90px; }
       .menu-item img { width: 50px; height: 50px; }
     }
     @media (max-width: 320px) {
+      .welcome-text { font-size: 1.1rem; }
+      .welcome-text small { font-size: 0.8rem; }
+      .tagline { font-size: 0.8rem; gap: 0.5rem; }
+      .logo-wrapper { width: 80px; height: 80px; }
       .menu-item img { width: 45px; height: 45px; }
     }
     @media (min-width: 768px) {
       .banner { padding-bottom: 56.25%; }
+      .welcome-text { font-size: 1.6rem; }
+      .welcome-text small { font-size: 1.1rem; }
+      .tagline { font-size: 1.1rem; gap: 1rem; }
       .logo-wrapper { width: 130px; height: 130px; }
       .menu-item img { width: 70px; height: 70px; }
     }
