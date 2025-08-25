@@ -37,7 +37,7 @@
       100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
     }
 
-    /* Banner with Responsive Aspect Ratio */
+    /* Banner with Dynamic Height */
     .banner {
       position: relative;
       width: 100%;
@@ -79,31 +79,32 @@
     }
 
     /* Logo Wrapper - Perfect Circle */
-.logo-wrapper {
-  width: 16vw;
-  height: 16vw;
-  max-width: 120px;
-  max-height: 120px;
-  border-radius: 50%;
-  border: 3px solid #ffb703;
-  box-shadow: 0 0 25px rgba(255, 183, 3, 0.6);
-  overflow: hidden;
-  background: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  filter: brightness(1.2);
-  position: relative;
-  z-index: 3;
-}
-.logo-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-  filter: brightness(1.1) contrast(1.1);
-}
+    .logo-wrapper {
+      width: 14vw;
+      max-width: 100px;
+      height: 14vw;
+      max-height: 100px;
+      border-radius: 50%;
+      border: 3px solid #ffb703;
+      box-shadow: 0 0 25px rgba(255, 183, 3, 0.6);
+      overflow: hidden;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      filter: brightness(1.2);
+      position: relative;
+      z-index: 3;
+    }
+    .logo-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(1.1) contrast(1.1);
+      aspect-ratio: 1 / 1;
+    }
 
     .welcome-text {
       margin-top: 12px;
@@ -289,9 +290,9 @@
   <div class="banner">
     <img src="restaurentthumb.png" alt="Caserina Caffee Restaurant">
     <div class="banner-overlay">
-     <div class="logo-wrapper">
-  <img src="logo.png" alt="Caserina Logo">
-</div>
+      <div class="logo-wrapper">
+        <img src="logo.png" alt="Caserina Logo">
+      </div>
       <div class="welcome-text">
         Welcome to Caserina Caffee
         <small>Choose Your Items</small>
