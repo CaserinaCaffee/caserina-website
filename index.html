@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Caserina Caffee</title>
-  <meta name="description" content="Welcome to Caserina Caffee – Refreshing Drinks, Hot Coffee, Sweet Treats. Choose your items.">
+  <meta name="description" content="Welcome to Caserina Caffee - Choose your category">
 
   <style>
     /* Reset & Base */
@@ -15,12 +15,36 @@
       font-family: 'Poppins', 'Segoe UI', Roboto, Arial, sans-serif;
     }
 
+    /* --- Background Image Variable --- */
+    :root {
+      /* ========================================== */
+      /* REPLACE THE PATH BELOW WITH YOUR IMAGE PATH */
+      /* Examples:                                  */
+      /* - Same folder: 'my-background.jpg'         */
+      /* - Subfolder: 'images/my-background.jpg'    */
+      /* - Online URL: 'https://example.com/bg.jpg' */
+      /* ========================================== */
+      --main-bg-image: url('bg2.png');
+    }
+
     body {
-      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+      /* Use the background image defined in the variable above */
+      background-image: var(--main-bg-image);
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
       color: #fff;
       overflow-x: hidden;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      /* Keep the gradient as a fallback if image fails to load */
+      background-color: #0f3460;
+      background-blend-mode: overlay; /* Blend image with color if needed */
+      /* Add a subtle shadow to the entire page content to separate it from the background */
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     }
+    /* --- End Background Image Variable --- */
 
     /* Animated Bubbles Background */
     .bubble {
@@ -37,48 +61,7 @@
       100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
     }
 
-    /* Banner with Responsive Aspect Ratio */
-    .banner {
-      position: relative;
-      width: 100%;
-      height: 0;
-      padding-bottom: 56.25%; /* 16:9 aspect ratio */
-      overflow: hidden;
-      border-bottom: 1px solid rgba(255, 183, 3, 0.2);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    }
-    .banner img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(0.7) contrast(1.1) saturate(1.1);
-      transition: filter 0.5s ease;
-    }
-    .banner img:hover {
-      filter: brightness(0.85) contrast(1.1);
-    }
-
-    /* Overlay: Centered Content */
-    .banner-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      z-index: 2;
-      padding: 20px;
-      pointer-events: none;
-    }
-
-    /* Logo Wrapper - Perfect Circle */
+    /* Logo Wrapper - Perfect Circle (Placed directly in body now) */
     .logo-wrapper {
       width: 14vw;
       max-width: 100px;
@@ -92,7 +75,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 0 auto;
+      margin: 1rem auto 0; /* Add top margin for spacing */
       filter: brightness(1.2);
       position: relative;
       z-index: 3;
@@ -108,122 +91,70 @@
 
     .welcome-text {
       margin-top: 12px;
-      font-size: clamp(1.1rem, 4vw, 1.6rem);
+      font-size: clamp(1.1rem, 4vw, 1.8rem); /* Slightly larger */
       font-weight: 700;
       color: #fff;
       text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
-      pointer-events: auto;
+      text-align: center; /* Ensure text is centered */
     }
     .welcome-text small {
       display: block;
-      font-size: clamp(0.8rem, 3.5vw, 1.1rem);
+      font-size: clamp(0.8rem, 3.5vw, 1.2rem); /* Slightly larger */
       color: #ffd166;
       margin-top: 6px;
       font-weight: 400;
+      text-align: center; /* Ensure text is centered */
     }
 
-    .tagline {
-      font-size: clamp(0.8rem, 3.5vw, 1.1rem);
-      margin-top: 12px;
-      font-weight: 600;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      max-width: 90%;
-      pointer-events: auto;
-    }
-    .tagline span {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
+    /* Main Categories Grid */
+    .categories-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 25px;
+        padding: 30px 20px;
+        flex: 1; /* Take available space */
+        width: 100%; /* Ensure it spans full width */
     }
 
-    /* Category Accordion */
-    .category {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 1rem;
-      margin: 1rem 0.9rem;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-      overflow: hidden;
-      position: relative;
-      z-index: 1;
-      backdrop-filter: blur(4px);
-    }
-    .category-header {
-      padding: 1.1rem 1rem;
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--desc-color, #ffb703);
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: background 0.3s ease;
-    }
-    .category-header:hover {
-      background: rgba(255, 255, 255, 0.06);
-    }
-    .category-header span {
-      font-size: 1.3rem;
-      transition: transform 0.3s ease;
-    }
-    .category-header.active span {
-      transform: rotate(90deg);
-    }
-    .category-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.6s cubic-bezier(0, 1, 0, 1);
-      will-change: max-height;
+    .category-circle {
+        width: 30vw;
+        height: 30vw;
+        max-width: 150px;
+        max-height: 150px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid #ffb703;
+        box-shadow: 0 0 20px rgba(255, 183, 3, 0.4);
+        display: flex;
+        flex-direction: column; /* Stack icon and text vertically */
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: clamp(0.9rem, 3vw, 1.1rem); /* Adjust font size */
+        font-weight: 600; /* Slightly less bold for text */
+        color: #fff;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none; /* Remove underline from links */
+        padding: 10px; /* Add padding */
+        box-sizing: border-box; /* Include padding in width/height */
     }
 
-    /* Menu Items */
-    .menu-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin: 0.6rem 1rem;
-      padding: 0.9rem;
-      border-radius: 0.8rem;
-      background: rgba(255, 255, 255, 0.05);
-      transition: all 0.3s ease;
+    .category-circle:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(255, 183, 3, 0.7);
     }
-    .menu-item:hover {
-      background: rgba(255, 255, 255, 0.13);
-      transform: translateY(-2px) scale(1.02);
-    }
-    .menu-item img {
-      width: 65px;
-      height: 65px;
-      border-radius: 0.6rem;
-      object-fit: cover;
-      background: #222;
-      flex: 0 0 65px;
-    }
-    .item-info {
-      flex: 1;
-      min-width: 0;
-    }
-    .item-info h3 {
-      font-size: 1.05rem;
-      margin-bottom: 0.2rem;
-      color: #fff;
-      line-height: 1.3;
-      font-weight: 600;
-    }
-    .item-info p:not(.item-price) {
-      font-size: 0.85rem;
-      line-height: 1.35;
-      color: var(--desc-color, #ffb703);
-    }
-    .item-price {
-      font-weight: 700;
-      color: #e63946;
-      font-size: 0.95rem;
-      margin-top: 0.2rem;
+
+    /* Icon styling inside circle */
+    .category-icon {
+        font-size: 2.5rem; /* Size of the icon */
+        margin-bottom: 10px; /* Space between icon and text */
+        color: #ffb703; /* Icon color */
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); /* Subtle shadow for icon */
     }
 
     /* Footer */
@@ -233,6 +164,12 @@
       font-size: 0.9rem;
       color: #bdbdbd;
       padding: 0 1rem;
+      flex-shrink: 0; /* Prevent footer from shrinking */
+      /* Add a semi-transparent background to footer for better text visibility */
+      background-color: rgba(10, 15, 30, 0.5);
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      width: 100%; /* Ensure footer spans full width */
     }
     footer .contact {
       margin-top: 0.9rem;
@@ -255,36 +192,35 @@
       font-size: 1.2rem;
     }
 
-    /* Mobile-First Responsive Design */
+    /* Responsive Adjustments for Circles */
     @media (max-width: 414px) {
-      .welcome-text { font-size: 1.3rem; }
-      .welcome-text small { font-size: 0.9rem; }
-      .tagline { font-size: 0.9rem; gap: 0.7rem; }
-      .logo-wrapper { width: 100px; height: 100px; }
-      .menu-item { gap: 0.8rem; padding: 0.8rem; }
-      .menu-item img { width: 55px; height: 55px; }
+      .categories-grid { gap: 20px; }
+      .category-circle {
+        width: 32vw; height: 32vw; max-width: 130px; max-height: 130px;
+        font-size: clamp(0.8rem, 3vw, 1.0rem);
+      }
+      .category-icon { font-size: 2rem; }
     }
     @media (max-width: 375px) {
-      .welcome-text { font-size: 1.2rem; }
-      .welcome-text small { font-size: 0.85rem; }
-      .tagline { font-size: 0.85rem; gap: 0.6rem; }
-      .logo-wrapper { width: 90px; height: 90px; }
-      .menu-item img { width: 50px; height: 50px; }
+      .categories-grid { gap: 18px; }
+      .category-circle {
+        width: 34vw; height: 34vw; max-width: 120px; max-height: 120px;
+      }
     }
     @media (max-width: 320px) {
-      .welcome-text { font-size: 1.1rem; }
-      .welcome-text small { font-size: 0.8rem; }
-      .tagline { font-size: 0.8rem; gap: 0.5rem; }
-      .logo-wrapper { width: 80px; height: 80px; }
-      .menu-item img { width: 45px; height: 45px; }
+      .categories-grid { gap: 15px; }
+      .category-circle {
+        width: 36vw; height: 36vw; max-width: 110px; max-height: 110px;
+        font-size: 0.8rem;
+      }
+      .category-icon { font-size: 1.8rem; }
     }
     @media (min-width: 768px) {
-      .banner { padding-bottom: 56.25%; }
-      .welcome-text { font-size: 1.6rem; }
-      .welcome-text small { font-size: 1.1rem; }
-      .tagline { font-size: 1.1rem; gap: 1rem; }
-      .logo-wrapper { width: 130px; height: 130px; }
-      .menu-item img { width: 70px; height: 70px; }
+      .categories-grid { gap: 35px; }
+      .category-circle {
+        width: 180px; height: 180px; font-size: 1.2rem;
+      }
+      .category-icon { font-size: 3rem; }
     }
   </style>
 
@@ -300,339 +236,43 @@
   <div class="bubble" style="width:60px;height:60px;left:30%;bottom:-80px;animation-duration:16s;animation-delay:6s;"></div>
   <div class="bubble" style="width:150px;height:150px;left:10%;bottom:-200px;animation-duration:22s;animation-delay:1s;"></div>
 
-  <!-- Banner with Overlay -->
-  <div class="banner">
-    <img src="restaurentthumb.png" alt="Caserina Caffee Restaurant">
-    <div class="banner-overlay">
-      <div class="logo-wrapper">
-        <img src="logo.png" alt="Caserina Logo">
-      </div>
-      <div class="welcome-text">
-        Welcome to Caserina Caffee
-        <small>Choose Your Items</small>
-      </div>
-      <p class="tagline">
-        <span>🍹 Refreshing Drinks</span>
-        <span>☕ Hot Coffee</span>
-        <span>🍰 Sweet Treats</span>
-      </p>
-    </div>
+  <!-- Welcome Section - Placed directly in the body -->
+  <div class="logo-wrapper">
+    <img src="logo.png" alt="Caserina Logo">
+  </div>
+  <div class="welcome-text">
+    Welcome To Caserina Caffee
+    <small>Choose Your Category</small>
   </div>
 
-  <!-- ===== COLD DRINKS ===== -->
-  <div class="category" style="--desc-color:#ffb703">
-    <div class="category-header">Cold Drinks <span>▶</span></div>
-    <div class="category-content">
-      <div class="menu-item">
-        <img src="smoothies.png" alt="Smoothies">
-        <div class="item-info">
-          <h3>Smoothies</h3>
-          <p>Strawberry, Mango, Passion, Peach, Mix Berries, Blueberry, Tropical</p>
-          <p class="item-price">$3.3</p>
-        </div>
-      </div>
-      <div class="menu-item">
-        <img src="milkshake.png" alt="Milk Shakes">
-        <div class="item-info">
-          <h3>Milk Shakes</h3>
-          <p>Strawberry, Chocolate, Oreo, Lotus, Bounty, Tutty Fruity, Pistachio</p>
-          <p class="item-price">$4.5</p>
-        </div>
-      </div>
-      <div class="menu-item">
-        <img src="frappuccino.png" alt="Frappuccino">
-        <div class="item-info">
-          <h3>Frappuccino</h3>
-          <p>Mocha, White Mocha, Caramel, Tiramisu, Irish</p>
-          <p class="item-price">$4.5</p>
-        </div>
-      </div>
-    </div>
+  <!-- Main Categories Circles -->
+  <div class="categories-grid">
+    <!-- Links to Drinks group -->
+    <a href="menu.html#group-drinks" class="category-circle">
+      <i class="category-icon fas fa-coffee"></i>
+      <span>مشروبات</span>
+    </a>
+    <!-- Links to Sweets group -->
+    <a href="menu.html#group-sweets" class="category-circle">
+      <i class="category-icon fas fa-cake"></i>
+      <span>تحلاية</span>
+    </a>
+    <!-- Links to Relax group -->
+    <a href="menu.html#group-relax" class="category-circle">
+      <i class="category-icon fas fa-smoking"></i> <!-- Using fa-smoking icon -->
+      <span>خدلك نفس</span>
+    </a>
+    <!-- Links to Snacks group -->
+    <a href="menu.html#group-snacks" class="category-circle">
+      <i class="category-icon fas fa-carrot"></i> <!-- Using fa-carrot icon -->
+      <span> المقبلات</span>
+    </a>
+    <!-- Links to Foods group (New) -->
+    <a href="menu.html#group-foods" class="category-circle">
+      <i class="category-icon fas fa-hamburger"></i> <!-- Using fa-hamburger icon -->
+      <span>Foods</span>
+    </a>
   </div>
-
-  <!-- ===== MOJITOS ===== -->
-  <div class="category" style="--desc-color:#ffb703">
-    <div class="category-header">Mojitos <span>▶</span></div>
-    <div class="category-content">
-      <div class="menu-item">
-        <img src="mojitopassion.png" alt="Mojito">
-        <div class="item-info">
-          <h3>Mojito</h3>
-          <p>Mint, Passion, Peach, Mango, Berries, Blue Curacao, Grenadine, Strawberry, Blueberry</p>
-          <p class="item-price">$2.8</p>
-        </div>
-      </div>
-      <div class="menu-item">
-        <img src="mojito.png" alt="Mojito Lemonade">
-        <div class="item-info">
-          <h3>Mojito Lemonade</h3>
-          <p>Lemonade, Lemonade & Mint, Lemonade & Basil</p>
-          <p class="item-price">$3.3</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== ICED TEA & COFFEE ===== -->
-  <div class="category" style="--desc-color:#ffb703">
-    <div class="category-header">Iced Tea & Coffee <span>▶</span></div>
-    <div class="category-content">
-      <div class="menu-item"><img src="iceteapeach.png" alt="Peach Ice Tea"><div class="item-info"><h3>Peach Ice Tea</h3><p class="item-price">$2.2</p></div></div>
-      <div class="menu-item"><img src="lemonicetea.png" alt="Lemon Ice Tea"><div class="item-info"><h3>Lemon Ice Tea</h3><p class="item-price">$2.2</p></div></div>
-      <div class="menu-item"><img src="peachberriesicetea.png" alt="Peach Berries Ice Tea"><div class="item-info"><h3>Peach Berries Ice Tea</h3><p class="item-price">$2.2</p></div></div>
-      <div class="menu-item"><img src="peachpassionicetea.png" alt="Peach Passion Ice Tea"><div class="item-info"><h3>Peach Passion Ice Tea</h3><p class="item-price">$2.2</p></div></div>
-      <div class="menu-item"><img src="caramelicecoffee.png" alt="Caramel Ice Coffee"><div class="item-info"><h3>Caramel Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
-      <div class="menu-item"><img src="icemocha.png" alt="Ice Mocha"><div class="item-info"><h3>Ice Mocha</h3><p class="item-price">$2.8</p></div></div>
-      <div class="menu-item"><img src="vanillaicecoffee.png" alt="Vanilla Ice Coffee"><div class="item-info"><h3>Vanilla Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
-      <div class="menu-item"><img src="irishicecoffee.png" alt="Irish Ice Coffee"><div class="item-info"><h3>Irish Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
-      <div class="menu-item"><img src="tiramisuicecoffee.png" alt="Tiramisu Ice Coffee"><div class="item-info"><h3>Tiramisu Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
-    </div>
-  </div>
-
-  <!-- ===== HOT DRINKS ===== -->
-  <div class="category" style="--desc-color:#ffb703">
-    <div class="category-header">Hot Drinks <span>▶</span></div>
-    <div class="category-content">
-      <div class="menu-item"><img src="coffeelatte.png" alt="Coffee Latte"><div class="item-info"><h3>Coffee Latte</h3><p>Mocha, Caramel, Vanilla, Tiramisu, Cookies</p><p class="item-price">$2.8</p></div></div>
-      <div class="menu-item"><img src="espresso.png" alt="Espresso"><div class="item-info"><h3>Espresso</h3><p class="item-price">$1.1</p></div></div>
-      <div class="menu-item"><img src="tea.png" alt="Tea"><div class="item-info"><h3>Tea</h3><p class="item-price">$1.1</p></div></div>
-      <div class="menu-item"><img src="cocoa.png" alt="Cocoa"><div class="item-info"><h3>Cocoa</h3><p class="item-price">$2.2</p></div></div>
-      <div class="menu-item"><img src="cappuccino.png" alt="Cappuccino"><div class="item-info"><h3>Cappuccino</h3><p class="item-price">$2.8</p></div></div>
-      <div class="menu-item"><img src="nescafe.png" alt="Nescafe"><div class="item-info"><h3>Nescafe</h3><p class="item-price">$2.2</p></div></div>
-      <div class="menu-item"><img src="hotchoclate.png" alt="Hot Chocolate"><div class="item-info"><h3>Hot Chocolate</h3><p class="item-price">$3.3</p></div></div>
-	  <div class="menu-item"><img src="specialhotchoclate.png" alt="Special Hot Chocolate"><div class="item-info"><h3>Special Hot Chocolate</h3><p class="item-price">$3.2</p>
-	  <p>Cookie, Coconut</p></div></div>
-	  <div class="menu-item"><img src="matcha.png" alt="Matcha"><div class="item-info"><h3>Matcha</h3><p class="item-price">$5</p>
-	  <p>Coconut, Strawberry, Cookie, Caramel, Chocolate, Vanilla, Pistachio</p></div></div>
-    </div>
-  </div>
-
-  <!-- ===== FRESH JUICES ===== -->
-  <div class="category" style="--desc-color:#ffb703">
-    <div class="category-header">Fresh Juices <span>▶</span></div>
-    <div class="category-content">
-      <div class="menu-item"><img src="mangofresh.png" alt="Mango Juice"><div class="item-info"><h3>Mango</h3><p class="item-price">$4.5</p></div></div>
-      <div class="menu-item"><img src="strawberryfresh.png" alt="Strawberry Juice"><div class="item-info"><h3>Strawberry</h3><p class="item-price">$3.9</p></div></div>
-      <div class="menu-item"><img src="cocktail.png" alt="Cocktail Juice"><div class="item-info"><h3>Cocktail</h3><p class="item-price">$5.0</p></div></div>
-    </div>
-  </div>
-
-  <!-- ===== SOFT DRINKS ===== -->
-  <div class="category" style="--desc-color:#ffb703">
-    <div class="category-header">Soft Drinks <span>▶</span></div>
-    <div class="category-content">
-      <div class="menu-item"><img src="cannedsoftdrinks.png" alt="Canned Soft Drink"><div class="item-info"><h3>Canned Soft Drink</h3><p class="item-price">$1.1</p></div></div>
-    </div>
-  </div>
-
-  <!-- ===== SNACKS & NUTS ===== -->
-  <div class="category" style="--desc-color:#ffb703">
-    <div class="category-header">Snacks & Nuts <span>▶</span></div>
-    <div class="category-content">
-      <div class="menu-item">
-        <img src="bzourat.png" alt="Bzourat">
-        <div class="item-info">
-          <h3>Bzourat</h3>
-          <p class="item-price">$1.63</p>
-        </div>
-      </div>
-      <div class="menu-item">
-        <img src="bzouratextra.png" alt="Bzourat Extra">
-        <div class="item-info">
-          <h3>Bzourat Extra</h3>
-          <p class="item-price">$2.2</p>
-        </div>
-      </div>
-      <div class="menu-item">
-        <img src="kloubet.png" alt="Kloubet">
-        <div class="item-info">
-          <h3>Kloubet</h3>
-          <p class="item-price">$3.3</p>
-        </div>
-      </div>
-      <div class="menu-item">
-        <img src="kajo.png" alt="Kajo">
-        <div class="item-info">
-          <h3>Kajo</h3>
-          <p class="item-price">$3.3</p>
-        </div>
-      </div>
-      <div class="menu-item">
-        <img src="peanuts.png" alt="Peanuts">
-        <div class="item-info">
-          <h3>Peanuts</h3>
-          <p class="item-price">$2.2</p>
-        </div>
-      </div>
-      <div class="menu-item">
-        <img src="lozmmala7.png" alt="Loz Mmala7">
-        <div class="item-info">
-          <h3>Loz Mmala7</h3>
-          <p class="item-price">$2.73</p>
-        </div>
-      </div>
-      <div class="menu-item">
-        <img src="lozmdakhan.png" alt="Loz Mdakhan">
-        <div class="item-info">
-          <h3>Loz Mdakhan</h3>
-          <p class="item-price">$2.73</p>
-        </div>
-      </div>
-      <div class="menu-item">
-        <img src="bezermayalshames.png" alt="Bezer Mayal Lshames">
-        <div class="item-info">
-          <h3>Bezer Mayal Lshames</h3>
-          <p class="item-price">$1.6</p>
-        </div>
-      </div>
-      <div class="menu-item">
-        <img src="jazarhamed.png" alt="Jazar & Hamed">
-        <div class="item-info">
-          <h3>Jazar & Hamed</h3>
-          <p class="item-price">$1.1</p>
-        </div>
-      </div>
-      <div class="menu-item">
-        <img src="foulhamedjazar.png" alt="Foul & Hamed & Jazar">
-        <div class="item-info">
-          <h3>Foul & Hamed & Jazar</h3>
-          <p class="item-price">$2.2</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== SHISHA ===== -->
-  <div class="category" style="--desc-color:#ffb703">
-    <div class="category-header">Shisha <span>▶</span></div>
-    <div class="category-content">
-      <div class="menu-item">
-        <img src="argile.png" alt="Argile">
-        <div class="item-info">
-          <h3>Argile</h3>
-          <p class="item-price">$5.5</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== BOUZA ===== -->
-  <div class="category" style="--desc-color:#ffb703">
-    <div class="category-header">Bouza <span>▶</span></div>
-    <div class="category-content">
-      <div class="menu-item">
-        <img src="bouzascoop.png" alt="1 Scoop Bouza">
-        <div class="item-info">
-          <h3>1 Scoop Bouza</h3>
-          <p class="item-price">$1.1</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- ===== PASTRY & SWEET ===== -->
-<div class="category" style="--desc-color:#ffb703">
-  <div class="category-header">Pastry & Sweet <span>▶</span></div>
-  <div class="category-content">
-    <div class="menu-item">
-      <img src="frutticr.png" alt="Cheesecake">
-      <div class="item-info">
-        <h3>Frutti Croissant</h3>
-        
-        <p class="item-price">$3.9</p>
-      </div>
-    </div>
-    <div class="menu-item">
-      <img src="specialcr.png" alt="Cheesecake">
-      <div class="item-info">
-        <h3>Special Croissant</h3>
-        
-        <p class="item-price">$3.9</p>
-      </div>
-    </div>
-    <div class="menu-item">
-      <img src="kunafacr.png" alt="Cheesecake">
-      <div class="item-info">
-        <h3>Kunafa Croissant</h3>
-        
-        <p class="item-price">$4.5</p>
-      </div>
-    </div>
-	
-	<div class="menu-item">
-      <img src="choccheesecr.png" alt="Cheesecake">
-      <div class="item-info">
-        <h3>Choclate OR Cheese Croissant</h3>
-        
-        <p class="item-price">$1.6</p>
-      </div>
-    </div>
-	<div class="menu-item">
-      <img src="normalcr.png" alt="Cheesecake">
-      <div class="item-info">
-        <h3>Normal Croissant (سادة)</h3>
-        
-        <p class="item-price">$1.1</p>
-      </div>
-    </div>
-	<div class="menu-item">
-      <img src="eclair.png" alt="Cheesecake">
-      <div class="item-info">
-        <h3>Eclair</h3>
-        
-        <p class="item-price">$2.8</p>
-      </div>
-    </div>
-	<div class="menu-item">
-      <img src="eclairextra.png" alt="Cheesecake">
-      <div class="item-info">
-        <h3>Eclair Extra</h3>
-        
-        <p class="item-price">$3.8</p>
-      </div>
-    </div>
-	<div class="menu-item">
-      <img src="babaroom.png" alt="Cheesecake">
-      <div class="item-info">
-        <h3>Baba Rom</h3>
-        
-        <p class="item-price">$3.8</p>
-      </div>
-    </div>
-	<div class="menu-item">
-      <img src="cheesecake.png" alt="Cheesecake">
-      <div class="item-info">
-        <h3>Cheese Cake</h3>
-        
-        <p class="item-price">$3.8</p>
-      </div>
-    </div>
-	<div class="menu-item">
-      <img src="donuts.png" alt="Cheesecake">
-      <div class="item-info">
-        <h3>Donuts</h3>
-        
-        <p class="item-price">$2.8</p>
-      </div>
-    </div>
-	<div class="menu-item">
-      <img src="kunafa.png" alt="Cheesecake">
-      <div class="item-info">
-        <h3>Kunafa كنافة</h3>
-        
-        <p class="item-price">$3.3</p>
-      </div>
-    </div>
-	<div class="menu-item">
-      <img src="swari.png" alt="Cheesecake">
-      <div class="item-info">
-        <h3>Swari Mini Cake</h3>
-        
-        <p class="item-price">$2.8</p>
-      </div>
-    </div>
-  </div>
-</div>
 
   <!-- FOOTER -->
   <footer>
@@ -647,33 +287,5 @@
     </div>
   </footer>
 
-  <!-- Accordion Script -->
-  <script>
-    document.querySelectorAll('.category-header').forEach(header => {
-      const content = header.nextElementSibling;
-      header.addEventListener('click', () => {
-        const isActive = header.classList.contains('active');
-
-        // Close all
-        document.querySelectorAll('.category-content').forEach(c => {
-          c.style.maxHeight = null;
-          c.previousElementSibling.classList.remove('active');
-        });
-
-        if (!isActive) {
-          header.classList.add('active');
-          content.style.maxHeight = content.scrollHeight + 'px';
-        }
-      });
-    });
-
-    window.addEventListener('resize', () => {
-      const active = document.querySelector('.category-header.active');
-      const content = active?.nextElementSibling;
-      if (content) {
-        content.style.maxHeight = content.scrollHeight + 'px';
-      }
-    });
-  </script>
 </body>
 </html>
