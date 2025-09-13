@@ -15,23 +15,20 @@
       font-family: 'Poppins', 'Segoe UI', Roboto, Arial, sans-serif;
     }
 
-    /* --- Background Image Variable --- */
-
+    /* --- Background Configuration --- */
+    /* Intentionally left blank to remove background image for performance on menu.html */
+    /* The background image is kept on index.html */
+    /* --- End Background Configuration --- */
 
     body {
-      /* Use the background image defined in the variable above */
-      
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
+      /* Use a solid background color for performance */
+      /* background-image: none; is implicit */
+      background-color: #0f3460; /* Dark blue fallback */
       color: #fff;
       overflow-x: hidden;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      /* Keep the gradient as a fallback if image fails to load */
-      background-color: #0f3460;
-      background-blend-mode: overlay; /* Blend image with color if needed */
       /* Add a subtle shadow to the entire page content to separate it from the background */
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     }
